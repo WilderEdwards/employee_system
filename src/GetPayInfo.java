@@ -16,7 +16,14 @@ public class GetPayInfo extends GetEmployeesInfo {
                             "WHERE e.division = '" + division + "' AND MONTH(pay_date) = " + month;
         
         try (Connection myConn = DriverManager.getConnection(url, user, password)) {
-
+            Statement myStmt = myConn.createStatement();
+            ResultSet myRS = myStmt.executeQuery(sqlcommand);
+            while (myRS.next()) {
+                System.out.println("Total pay for " + division + " in month " + month + " is: " + myRS.getDouble("SUM(pay_amount)"));
+            }
+            myConn.close();
+        } catch (Exception e) {
+            System.out.println("ERROR " + e.getLocalizedMessage());
     }
-
+    }
 }

@@ -21,7 +21,7 @@ public class main {
     while (user_choice != 5) {
         if (user_choice == 1) {
             InsertEmployee newEmployee = new InsertEmployee();
-            newEmployee.insertEmployee();
+            newEmployee.insertEmployee(url, user, password);
         } else if (user_choice == 2) {
             GetEmployeesInfo employeeInfo = new GetEmployeesInfo();
             System.out.println("Would you like to:");
@@ -30,24 +30,25 @@ public class main {
             System.out.println("3. Search total employee pay for a specific month by Division");
             user_choice = user_input.nextInt();
             if (user_choice == 1) {
-                employeeInfo.getFullInfo();
+                employeeInfo.getFullInfo(url,user, password);
             } else if (user_choice == 2) {
-                employeeInfo.getPayByJobTitle();
+                employeeInfo.getPayByJobTitle(url, user, password);
             } else if (user_choice == 3) {
-                employeeInfo.getPayByDivision();
+                employeeInfo.getPayByDivision(url, user, password);
             } else {
                 System.out.println("Invalid selection. Please try again.");
             }
 
         } else if (user_choice == 3) {
             UpdateEmployee updateEmployee = new UpdateEmployee();
-            updateEmployee.updateEmployeeData();
+            updateEmployee.updateEmployeeData(url, user, password);
         } else if (user_choice == 4) {
             DeleteEmployee deleteEmployee = new DeleteEmployee();
-            deleteEmployee.deleteEmployee();
+            deleteEmployee.deleteEmployee(url, user, password);
         }
         else {
             System.out.println("Invalid selection. Please try again.");
+            }
         }
     }
 }
