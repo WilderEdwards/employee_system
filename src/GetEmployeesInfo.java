@@ -25,7 +25,7 @@ public class GetEmployeesInfo {
             
         String sqlcommand = "SELECT * " +
                             "FROM employee e NATURAL JOIN payroll" +
-                            "WHERE e.Fname = '" + fname + "' AND e.Lname = '" + lname + "' AND e.empid = " + empid + " AND e.ssn = '" + ssn + "'";
+                            "WHERE e.Fname = '" + fname + "' AND e.Lname = '" + lname + "' AND e.empid = " + empid + " AND e.SSN = '" + ssn + "'";
 
         try (Connection myConn = DriverManager.getConnection(url, user, password)) {
             Statement myStmt = myConn.createStatement();
@@ -77,7 +77,7 @@ public class GetEmployeesInfo {
 
 
     public void getPayByJobTitle(String url, String user, String password) {
-        
+
     }
 }
 
