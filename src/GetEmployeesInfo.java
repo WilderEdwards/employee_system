@@ -24,7 +24,7 @@ public class GetEmployeesInfo {
             user_input.close();
             
         String sqlcommand = "SELECT * " +
-                            "FROM employee e NATURAL JOIN payroll" +
+                            "FROM employees e" +
                             "WHERE e.Fname = '" + fname + "' AND e.Lname = '" + lname + "' AND e.empid = " + empid + " AND e.SSN = '" + ssn + "'";
 
         try (Connection myConn = DriverManager.getConnection(url, user, password)) {
@@ -47,7 +47,7 @@ public class GetEmployeesInfo {
 
         System.out.println("\nPress Enter to clear console screen...\n");
         Scanner myScanner = new Scanner(System.in);
-        myScanner.nextLine();
+        //myScanner.nextLine();
         myScanner.close();
         System.out.print("\033[H\033[2J");  
         System.out.flush();
@@ -60,7 +60,7 @@ public class GetEmployeesInfo {
         int month = user_input.nextInt();
         user_input.close();
         String sqlcommand = "SELECT SUM(pay) " +
-                            "FROM payroll p NATURAL JOIN employee e " +
+                            "FROM payroll p NATURAL JOIN employees e " +
                             "WHERE e.division = '" + division + "' AND MONTH(p.pay_date) = " + month;
 
         try (Connection myConn = DriverManager.getConnection(url, user, password)) {

@@ -10,7 +10,7 @@ public class UpdateSalary extends UpdateEmployee {
         System.out.println("Enter employee's salary: ");
         double salary = user_input.nextDouble();
         user_input.close();
-        String sqlcommand = "UPDATE employee SET salary = " + salary + " WHERE empid = " + empid;
+        String sqlcommand = "UPDATE employees SET salary = " + salary + " WHERE empid = " + empid;
         try (Connection myConn = DriverManager.getConnection(url, user, password)) {
             Statement myStmt = myConn.createStatement();
             myStmt.executeUpdate(sqlcommand);

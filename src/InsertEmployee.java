@@ -20,7 +20,7 @@ public class InsertEmployee {
 
         try (Connection myConn = DriverManager.getConnection(url, user, password)) {
             Statement myStmt = myConn.createStatement();
-            String sqlcommand = "INSERT INTO employee (Fname, Lname, email, HireDate, Salary, SSN) VALUES ('" + fname + "', '" + lname + "', '" + email + "', '" + doh + "', " + salary + ", '" + ssn + "')";
+            String sqlcommand = "INSERT INTO employees (Fname, Lname, email, HireDate, Salary, SSN) VALUES ('" + fname + "', '" + lname + "', '" + email + "', '" + doh + "', " + salary + ", '" + ssn + "')";
             myStmt.executeUpdate(sqlcommand);
             System.out.println("Employee added successfully!");
             myConn.close();

@@ -10,6 +10,7 @@ public class UpdateEmployee {
     System.out.println("\n Enter information when prompted, or press Enter to skip. \n");
     System.out.println("Enter employee's salary: ");
     double salary = user_input.nextDouble();
+    
 
 
     

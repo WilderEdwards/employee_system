@@ -12,7 +12,7 @@ public class GetPayInfo extends GetEmployeesInfo {
         user_input.close();
 
         String sqlcommand = "SELECT SUM(pay_amount) " +
-                            "FROM payroll p NATURAL JOIN employee e " +
+                            "FROM payroll p NATURAL JOIN employees e " +
                             "WHERE e.division = '" + division + "' AND MONTH(pay_date) = " + month;
         
         try (Connection myConn = DriverManager.getConnection(url, user, password)) {
