@@ -2,19 +2,13 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class GetEmployeesInfo {
-        public static void main(String[] args) {
+        public void getFullInfo(String url,String user, String password) {
 
-    
-        
 
-        System.out.println("")
-        String url = "jdbc:mysql://localhost:3306/employeeData";
-        String user = "root";
-        String password = "Seeker123*";
+        System.out.println("");
         StringBuilder output = new StringBuilder("");
 
             Scanner user_input = new Scanner(System.in);
-    
     
             System.out.println("Enter employee's first name: ");
             String fname = user_input.next();
@@ -27,10 +21,11 @@ public class GetEmployeesInfo {
     
             System.out.println("Enter the employee's SSN: ");
             String ssn = user_input.next();
+            user_input.close();
             
-        String sqlcommand = "SELECT * 
-                            FROM employee e
-                            WHERE e.Fname = '" + fname + "' AND e.Lname = '" + lname + "' AND e.empid = " + empid + " AND e.ssn = '" + ssn + "'";
+        String sqlcommand = "SELECT * " +
+                            "FROM employee e NATURAL JOIN payroll" +
+                            "WHERE e.Fname = '" + fname + "' AND e.Lname = '" + lname + "' AND e.empid = " + empid + " AND e.ssn = '" + ssn + "'";
 
         try (Connection myConn = DriverManager.getConnection(url, user, password)) {
             Statement myStmt = myConn.createStatement();
@@ -44,11 +39,6 @@ public class GetEmployeesInfo {
                 System.out.print(output.toString());
                 output.setLength(0);
 
-                // Create an instance of Payroll and call getPayByMonth
-                Payroll payroll = new Payroll();
-                output.append(payroll.getPayByMonth(myRS.getInt("e.empid"), myConn));
-                System.out.print(output.toString());
-                output.setLength(0);
             }
             myConn.close();
         } catch (Exception e) {
@@ -62,4 +52,33 @@ public class GetEmployeesInfo {
         System.out.print("\033[H\033[2J");  
         System.out.flush();
     }
+    public void getPayByDivision(String url, String user, String password) {
+        Scanner user_input = new Scanner(System.in);
+        System.out.println("Enter the division you would like to search: ");
+        String division = user_input.next();
+        System.out.println("Enter the month you would like to search: ");
+        int month = user_input.nextInt();
+        user_input.close();
+        String sqlcommand = "SELECT SUM(pay) " +
+                            "FROM payroll p NATURAL JOIN employee e " +
+                            "WHERE e.division = '" + division + "' AND MONTH(p.pay_date) = " + month;
+
+        try (Connection myConn = DriverManager.getConnection(url, user, password)) {
+            Statement myStmt = myConn.createStatement();
+            ResultSet myRS = myStmt.executeQuery(sqlcommand);
+            while (myRS.next()) {
+                System.out.println("Total pay for " + division + " in month " + month + " is: " + myRS.getDouble("SUM(pay)"));
+            }
+            myConn.close();
+        } catch (Exception e) {
+            System.out.println("ERROR " + e.getLocalizedMessage());
+        }
+    }
+
+
+    public void getPayByJobTitle(String url, String user, String password) {
+        
+    }
 }
+
+
