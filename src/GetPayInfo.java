@@ -3,6 +3,9 @@ import java.util.Scanner;
 
 
 public class GetPayInfo extends GetEmployeesInfo {
+    //TODO: Debug with your database connection, ensure queries return correct info
+
+    
     public void getPayByDivision(String url, String user, String password) {
         Scanner user_input = new Scanner(System.in);
         System.out.println("Enter the division you would like to search: ");

@@ -4,6 +4,8 @@ import java.util.Scanner;
 public class GetEmployeesInfo {
         public void getFullInfo(String url,String user, String password) {
 
+        System.out.println("EMPLOYEE INFORMATION\n");
+        //TODO: Potentially make separate methods for each query (SSN, empID, name, etc)
 
         System.out.println("");
         StringBuilder output = new StringBuilder("");
