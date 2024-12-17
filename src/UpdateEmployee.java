@@ -31,17 +31,14 @@ public class UpdateEmployee {
     String city = user_input.next();
 
     
-  
+
     ArrayList<String> entered_values_employee = new ArrayList<String>() {
         {
             add(fname);
             add(lname);
             add(email);
             add(ssn);
-            // add(gender);
-            // add(phone);
-            // add(state);
-            // add(city);
+
         }
     };
 
@@ -51,10 +48,6 @@ public class UpdateEmployee {
             add("Lname");
             add("email");
             add("SSN");
-            // add("gender");
-            // add("phone");
-            // add("state");
-            // add("city");
         }
     };
 
@@ -85,7 +78,7 @@ public class UpdateEmployee {
         {
             add("gender");
             add("phone");
-            add("identified race");
+            add("identified_race");
             add("pronouns");
         }
     };
@@ -119,6 +112,12 @@ public class UpdateEmployee {
             for (int i = 0; i < entered_values_demographics.size(); i++) {
                 String sqlcommand = "UPDATE address SET " + column_names_demographics.get(i) + " = '" + entered_values_demographics.get(i) + "' WHERE empid = " + empid;
                 myStmt.executeUpdate(sqlcommand);
+                String sqlcommand2 = "SELECT * FROM demographics WHERE empid = " + empid;
+                ResultSet myRS = myStmt.executeQuery(sqlcommand2);
+                while (myRS.next()) {
+                    System.out.println("Employee's demographics updated successfully.");
+                    System.out.println("Employee's demographics: " + myRS.getString("pronouns") + "," + myRS.getString("identified_race") + ",");
+                }
             }
         }
 
@@ -126,6 +125,11 @@ public class UpdateEmployee {
         for (int i = 0; i < entered_values_employee.size(); i++) {
             String sqlcommand = "UPDATE employees SET " + column_names_employee.get(i) + " = '" + entered_values_employee.get(i) + "' WHERE empid = " + empid;
             myStmt.executeUpdate(sqlcommand);
+            String sqlcommand2 = "SELECT * FROM employees WHERE empid = " + empid;
+            ResultSet myRS = myStmt.executeQuery(sqlcommand2);
+            while (myRS.next()) {
+                System.out.println("Employee's information updated successfully.");
+                System.out.println("Employee's name: " + myRS.getString("Fname") + " " + myRS.getString("Lname"));
             }
         }
 
@@ -136,23 +140,18 @@ public class UpdateEmployee {
                 String sqlcommand2 = "SELECT * FROM address WHERE empid = " + empid;
                 ResultSet myRS = myStmt.executeQuery(sqlcommand2);
                 while (myRS.next()) {
-                    System.out.println("Employee's address updated successfully.");
+                    System.out.println("Employee's address+ updated successfully.");
                     System.out.println("Employee's address: " + myRS.getString("state") + ", " + myRS.getString("city"));
                 }
             }
         }
-
-
-
-
-    
-
     user_input.close();
-
-    
-
-
-    
-
+    myConn.close();
+    }
+}
+    catch (SQLException e) {
+        System.out.println("Error updating employee information.");
+        e.printStackTrace();
         }
     }
+}

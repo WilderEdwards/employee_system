@@ -47,12 +47,6 @@ public class GetEmployeesInfo {
             System.out.println("ERROR " + e.getLocalizedMessage());
         }
 
-        System.out.println("\nPress Enter to clear console screen...\n");
-        Scanner myScanner = new Scanner(System.in);
-        //myScanner.nextLine();
-        myScanner.close();
-        System.out.print("\033[H\033[2J");  
-        System.out.flush();
     }
     public void getPayByDivision(String url, String user, String password) {
         Scanner user_input = new Scanner(System.in);
