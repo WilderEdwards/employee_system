@@ -62,7 +62,7 @@ public class GetEmployeesInfo {
         int month = user_input.nextInt();
         user_input.close();
         String sqlcommand = "SELECT SUM(pay) " +
-                            "FROM payroll p NATURAL JOIN employees e " +
+                            "FROM employee_division NATURAL JOIN division d NATURAL JOIN payroll p " +
                             "WHERE e.division = '" + division + "' AND MONTH(p.pay_date) = " + month;
 
         try (Connection myConn = DriverManager.getConnection(url, user, password)) {
@@ -79,7 +79,26 @@ public class GetEmployeesInfo {
 
 
     public void getPayByJobTitle(String url, String user, String password) {
+        Scanner user_input = new Scanner(System.in);
+        System.out.println("Enter the job title you would like to search: ");
+        String job_title = user_input.next();
+        System.out.println("Enter the month you would like to search: ");
+        int month = user_input.nextInt();
+        user_input.close();
+        String sqlcommand = "SELECT SUM(earnings) " +
+                            "FROM employee_job_titles ejt NATURAL JOIN job_titles jt NATURAL JOIN payroll" +
+                            "WHERE jt.job_title = '" + job_title + "' AND MONTH(p.pay_date) = " + month;
 
+        try (Connection myConn = DriverManager.getConnection(url, user, password)) {
+            Statement myStmt = myConn.createStatement();
+            ResultSet myRS = myStmt.executeQuery(sqlcommand);
+            while (myRS.next()) {
+                System.out.println("Total pay for " + job_title + " in month " + month + " is: " + myRS.getDouble("SUM(pay)"));
+            }
+            myConn.close();
+        } catch (Exception e) {
+            System.out.println("ERROR " + e.getLocalizedMessage());
+        }
     }
 }
 
